@@ -1,4 +1,22 @@
+const fs = require('fs');
+const path = require('path');
 const amqp = require('amqplib/callback_api');
+
+const QUEUE_NAME = 'hello';
+
+function processFile(filePath, channel) {
+  if (!fs.existsSync(filePath)) {
+    console.log("File does not exist: " + filePath);
+  }
+
+  console.log(`processing file: ${filePath}`)
+  const data = fs.readFileSync(filePath).toString();
+  data.trim().split('\n').map(e => {
+    const obj = {path: filePath, line: e};
+    channel.sendToQueue(QUEUE_NAME, Buffer.from(JSON.stringify({obj})));
+    console.log(" [x] Sent %s", JSON.stringify({obj}));
+  });
+}
 
 module.exports = function run(argvRest) {
   amqp.connect('amqp://localhost', function(error0, connection) {
@@ -9,21 +27,15 @@ module.exports = function run(argvRest) {
       if (error1) {
         throw error1;
       }
-      var queue = 'hello';
-
-      channel.assertQueue(queue, {
+      channel.assertQueue(QUEUE_NAME, {
         durable: false
       });
 
-      channel.sendToQueue(queue, Buffer.from(argvRest.join("###")));
-      console.log(" [x] Sent %s", argvRest.join("###"));
-
-      setTimeout(function() {
-        connection.close(err => {
-          console.log("connection close. err=" + err)
-        });
-        process.exit(0)
-        }, 500);
+      fs.watch(process.env.INPUT_DIR, (eType, fileName) => {
+        if (eType === 'rename') {
+          processFile(path.join(process.env.INPUT_DIR, fileName), channel);
+        }
+      })
     });
   });
 }
