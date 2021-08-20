@@ -17,12 +17,9 @@ module.exports = function run(argvRest) {
 
       console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
       channel.consume(queue, function(msg) {
-        const message = JSON.parse(msg.content.toString());
-        console.log(" [x] Received: %s", JSON.stringify(message, null, 2));
-      }, 
-      {
-          noAck: true
-      });
+          console.log(" [x] Received %s", msg.content.toString());
+        }, 
+        { noAck: true });
       });
   });
 }
