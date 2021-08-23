@@ -19,7 +19,7 @@ function processFile(filePath, channel) {
 }
 
 module.exports = function run(argvRest) {
-  amqp.connect('amqp://localhost', function(error0, connection) {
+  amqp.connect(process.env.MQ_URL || 'amqp://localhost', function(error0, connection) {
     if (error0) {
       throw error0;
     }

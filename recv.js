@@ -1,7 +1,11 @@
 const amqp = require('amqplib/callback_api');
 
+function processMessage(msg) {
+
+}
+
 module.exports = function run(argvRest) {
-  amqp.connect('amqp://localhost', function(error0, connection) {
+  amqp.connect(process.env.MQ_URL || 'amqp://localhost', function(error0, connection) {
     if (error0) {
       throw error0;
     }
@@ -19,6 +23,7 @@ module.exports = function run(argvRest) {
       channel.consume(queue, function(msg) {
         const message = JSON.parse(msg.content.toString());
         console.log(" [x] Received: %s", JSON.stringify(message, null, 2));
+
       }, 
       {
           noAck: true
