@@ -12,6 +12,8 @@ image:
   env:
     - name: KORN_FUNCTION
       value: "recv"
+    - name: MQ_URL
+      value: "amqp://mq-rabbitmq"
 
 imagePullSecrets: []
 nameOverride: ""
