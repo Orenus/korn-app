@@ -8,7 +8,7 @@ image:
   repository: orenus/korn-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.3"
+  tag: "0.0.4"
   env:
     - name: KORN_FUNCTION
       value: "recv"
