@@ -14,6 +14,11 @@ image:
       value: "recv"
     - name: MQ_URL
       value: "amqp://mq-rabbitmq"
+    - name: MQ_USER
+      value: "user"
+    - name: MQ_PASS
+      value: "nc5Y8fmfXm"
+
 
 imagePullSecrets: []
 nameOverride: ""
