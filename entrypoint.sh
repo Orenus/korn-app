@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set | grep KORN
+set | grep MQ
+
 if [[ "$KORN_FUNCTION" = "send" ]] ;then
     npm run start -- send
 elif [[ "$KORN_FUNCTION" = "recv" ]] ;then
