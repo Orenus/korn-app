@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "0.0.1"
   env:
-    KORN_FUNCTION: "recv"
+    - name: KORN_FUNCTION
+      value: "recv"
 
 imagePullSecrets: []
 nameOverride: ""
