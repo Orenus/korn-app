@@ -20,6 +20,8 @@ image:
       value: "user"
     - name: MQ_PASS
       value: "nc5Y8fmfXm"
+    - name: MQ_STAM
+      value: 1
   volumeMounts:
     - name: korn-input
       mountPath: /input
