@@ -21,7 +21,7 @@ image:
     - name: MQ_PASS
       valueFrom:
         secretKeyRef:
-          name: korn-secret
+          name: korn-secrets
           key: mq_pass
     - name: MQ_STAM
       value: "1"
