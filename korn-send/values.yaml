@@ -19,7 +19,10 @@ image:
     - name: MQ_USER
       value: "user"
     - name: MQ_PASS
-      value: "nc5Y8fmfXm"
+      valueFrom:
+        secretKeyRef:
+          name: korn-secret
+          key: mq_pass
     - name: MQ_STAM
       value: "1"
   volumeMounts:
