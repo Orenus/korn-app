@@ -19,7 +19,8 @@ function processFile(filePath, channel) {
 }
 
 module.exports = function run(argvRest) {
-  amqp.connect(process.env.MQ_URL || 'amqp://localhost', function(error0, connection) {
+  const opt = { credentials: require('amqplib').credentials.plain(process.env.MQ_USER, process.env.MQ_PASS) };
+  amqp.connect(process.env.MQ_URL || 'amqp://localhost', opt, function(error0, connection) {
     if (error0) {
       throw error0;
     }
